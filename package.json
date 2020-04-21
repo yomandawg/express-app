@@ -4,7 +4,13 @@
   "description": "Express.js backend practice",
   "main": "src/main.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:routes": "mkdir -p src/routes && tsoa routes",
+    "build:swagger": "mkdir -p api && mkdir -p api/dist && tsoa swagger",
+    "build:ts": "tsc -p src",
+    "build:all": "npm run build:routes && npm run build:swagger && npm run build:ts",
+    "server": "node dist/main.js",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "repository": {
     "type": "git",
@@ -20,7 +26,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "@types/node": "^13.13.0",
+    "@types/node": "^13.13.1",
     "tsoa": "^2.5.14",
     "typescript": "^3.8.3"
   }
