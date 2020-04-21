@@ -38,11 +38,11 @@ Docker
     }
 }
 ```
-* `npx tsc -p src` to create a distribution folder
+* `npx tsc -p src` to create a distribution folder &rarr; `/dist/*`
 
 ### TSOA
 > TypeScript OpenAPI\
-> generate OpenAPI-compatible REST endpoints
+> generate OpenAPI-compatible **REST** endpoints
 * `npm install tsoa --save-dev`
 * `npm install @types/node --save-dev`
 
@@ -66,11 +66,12 @@ export class IndexController extends Controller {
     }
 }
 ```
+* Add TSOA config
 ```javascript
 // ./tsoa.json
 {
   "swagger": {
-    "basePath": "/api/v1",
+    "basePath": "/api/v1", // base path to call REST API
     "entryFile": "./src/main.ts",
     "specVersion": 3,
     "outputDirectory": "./api/dist",
@@ -79,10 +80,28 @@ export class IndexController extends Controller {
     ]
   },
   "routes": {
-    "basePath": "/api/v1",
+    "basePath": "/api/v1", // base path to call REST API
     "entryFile": "./src/main.ts",
     "routesDir": "./src/routes",
     "middleware": "express"
   }
 }
 ```
+
+### Router
+* `mkdir -p src/routes`
+* `npx tsoa routes` - automatically setup the router
+```javascript
+// ./main.ts
+import { RegisterRoutes } from './routes/routes'; // TSOA Routes
+...
+RegisterRoutes(app); // Route the app right away
+```
+
+* `npx tsc --experimentalDecorators src` - compile with options &rarr; `dist/*`
+
+
+### API testing
+* `node dist/main.js`
+* `curl localhost:3000/api/v1/`
+* `curl localhost:3000/api/v1/msg/`

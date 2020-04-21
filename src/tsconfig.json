@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "experimentalDecorators": true,
+        "allowJs": true,
         "outDir": "../dist",
         "baseUrl": "",
         "module": "commonjs"
